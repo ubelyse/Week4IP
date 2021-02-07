@@ -2,6 +2,9 @@ package com.example.eventrese.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +17,7 @@ import com.example.eventrese.R;
 import com.example.eventrese.models.Event;
 import com.example.eventrese.models.Events;
 import com.example.eventrese.ui.EventDetailActivity;
+import com.example.eventrese.util.ItemTouchHelperViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,56 +29,62 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class FirebaseEventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class FirebaseEventViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
     View mView;
     Context mContext;
+    public ImageView mRestaurantImageView;
 
     public FirebaseEventViewHolder(View itemView){
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
-        itemView.setOnClickListener(this);
     }
 
-    public void bindRestaurant(Events restaurant){
-        ImageView restaurantImageView = mView.findViewById(R.id.eventImageView);
-        TextView nameTextView = mView.findViewById(R.id.eventNameTextView);
+    public void bindRestaurant(Event restaurant){
+        mRestaurantImageView = mView.findViewById(R.id.restaurantImageView);
+        TextView nameTextView = mView.findViewById(R.id.restaurantNameTextView);
         TextView categoryTextView = mView.findViewById(R.id.categoryTextView);
-        //TextView ratingTextView = mView.findViewById(R.id.ratingTextView);
 
+        if (!restaurant.getImageUrl().contains("http")){
+            try {
+                Bitmap imageBitmap = decodeFromFirebaseBase64(restaurant.getImageUrl());
+                mRestaurantImageView.setImageBitmap(imageBitmap);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }else {
+            Picasso.get().load(restaurant.getImageUrl()).into(mRestaurantImageView);
+        }
         nameTextView.setText(restaurant.getName());
         categoryTextView.setText(restaurant.getCategory());
-        //ratingTextView.setText("Rating: " + restaurant.getRating() + "/5");
-        Picasso.get().load(restaurant.getImageUrl()).into(restaurantImageView);
+    }
+
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray,0, decodedByteArray.length);
     }
 
     @Override
-    public void onClick(View view){
-        final ArrayList<Events> restaurants = new ArrayList<>();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_EVENTS).child(uid);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    restaurants.add(snapshot.getValue(Events.class));
-                }
+    public void onItemSelected(){
+        //Log.d("Animation", "onItemSelected");
+        // we will add animations here
+        itemView.animate()
+                .alpha(0.7f)
+                .scaleX(0.9f)
+                .scaleY(0.9f)
+                .setDuration(500);
+    }
 
-                int itemPosition = getLayoutPosition();
-                Intent intent = new Intent(mContext, EventDetailActivity.class);
-                intent.putExtra("position", itemPosition + "");
-                intent.putExtra("restaurants", Parcels.wrap(restaurants));
-
-                mContext.startActivity(intent);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+    @Override
+    public void onItemClear(){
+        //Log.d("Animation", "onItemClear");
+        // we will add animations here
+        itemView.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f);
     }
 }

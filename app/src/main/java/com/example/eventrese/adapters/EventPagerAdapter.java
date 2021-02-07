@@ -8,19 +8,22 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.eventrese.fragments.EventDetailFragment;
 import com.example.eventrese.models.Event;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventPagerAdapter extends FragmentPagerAdapter {
-    private List<Event> mEvents;
+    private ArrayList<Event> mEvents;
+    private String mSource;
 
-    public EventPagerAdapter(FragmentManager fm, List<Event> events){
+    public EventPagerAdapter(FragmentManager fm, ArrayList<Event> events, String source){
         super(fm);
         mEvents = events;
+        mSource = source;
     }
 
     @Override
     public Fragment getItem(int position){
-        return EventDetailFragment.newInstance(mEvents.get(position));
+        return EventDetailFragment.newInstance(mEvents, position, mSource);
     }
 
     @Override

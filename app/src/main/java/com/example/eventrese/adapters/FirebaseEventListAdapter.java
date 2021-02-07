@@ -19,6 +19,7 @@ import com.example.eventrese.fragments.EventDetailFragment;
 import com.example.eventrese.models.Event;
 import com.example.eventrese.ui.EventDetailActivity;
 import com.example.eventrese.util.ItemTouchHelperAdapter;
+import com.example.eventrese.util.OnStartDragListener;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.ChildEventListener;
@@ -127,7 +128,7 @@ public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<Event, Fir
     @NonNull
     @Override
     public FirebaseEventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_list_item_drag, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_list_item_drag, parent, false);
         return new FirebaseEventViewHolder(view);
     }
 
