@@ -11,6 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.eventrese.R;
+import com.example.eventrese.adapters.ViewPagerAdapter;
+import com.example.eventrese.fragments.FriendsFragment;
+import com.example.eventrese.fragments.MessagesFragment;
+import com.example.eventrese.fragments.PersonalFragment;
+import com.example.eventrese.fragments.SettingsFragment;
+
 import java.util.List;
 import java.util.Vector;
 

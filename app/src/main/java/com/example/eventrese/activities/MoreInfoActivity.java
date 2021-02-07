@@ -15,6 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.eventrese.R;
+import com.example.eventrese.adapters.ListMediaStorageAdapter;
+import com.example.eventrese.models.Account;
+import com.example.eventrese.models.Message;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -110,17 +113,12 @@ public class MoreInfoActivity extends AppCompatActivity implements ValueEventLis
     View.OnClickListener goToFriendProfile = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            nodeStatus = FirebaseDatabase.getInstance().getReference().child("status").child(uidFriend);
+            nodeStatus = FirebaseDatabase.getInstance().getReference().child("users").child(uidFriend);
             nodeStatus.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String status = dataSnapshot.getValue(String.class);
 
-                    if(status.equals("Chỉ mình tôi")){
-                        Toast.makeText(MoreInfoActivity.this,"Người dùng hiện đang thiết lập chế độ riêng tư!",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                    else{
                         Intent iFriendProfile = new Intent(MoreInfoActivity.this, SearchProfileActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("UID_Friend",uidFriend);
@@ -131,7 +129,6 @@ public class MoreInfoActivity extends AppCompatActivity implements ValueEventLis
                         iFriendProfile.putExtras(bundle);
                         startActivity(iFriendProfile);
                         finish();
-                    }
                 }
 
                 @Override

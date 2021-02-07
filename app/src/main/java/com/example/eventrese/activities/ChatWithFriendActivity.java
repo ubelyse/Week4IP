@@ -24,7 +24,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.eventrese.Controllers.MessageController;
+import com.example.eventrese.Interfaces.GetAudioFromRecordFragment;
 import com.example.eventrese.R;
+import com.example.eventrese.adapters.RecyclerListMessageAdapter;
+import com.example.eventrese.fragments.AudioMessageFragment;
+import com.example.eventrese.models.Account;
+import com.example.eventrese.models.Message;
+import com.example.eventrese.models.RecentlyChat;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -74,8 +81,8 @@ public class ChatWithFriendActivity extends AppCompatActivity implements ValueEv
         setContentView(R.layout.activity_chat_with_friends);
 
         iChat= getIntent();
-        uidFriendChat = iChat.getStringExtra("UID_Friend"); // lấy uid người bạn chat cùng
-        nameFriendChat = iChat.getStringExtra("Name_Friend"); // lấy tên hiển thị trên thanh toolbars
+        uidFriendChat = iChat.getStringExtra("UID_Friend");
+        nameFriendChat = iChat.getStringExtra("Name_Friend");
 
         recyclerViewMessage = (RecyclerView)findViewById(R.id.recyclerViewMessage);
 
@@ -185,7 +192,7 @@ public class ChatWithFriendActivity extends AppCompatActivity implements ValueEv
         }
 
         nodeRefreshMessage = FirebaseDatabase.getInstance().getReference();
-        nodeRefreshMessage.addValueEventListener(this); // lắng nghe sự kiện khi có tin nhắn mới hoặc gửi đi
+        nodeRefreshMessage.addValueEventListener(this);
     }
 
 
@@ -290,13 +297,11 @@ public class ChatWithFriendActivity extends AppCompatActivity implements ValueEv
         }
         nodeMessage.push().setValue(msg);
 
-        //push thông tin cần thiết cho việc lấy danh sách gần đây
         nodeInfoMine = FirebaseDatabase.getInstance().getReference().child("more_info")
                 .child(FirebaseAuth.getInstance().getUid()).child("last_messages");
 
-        // push tin nhắn cuối để show ra khi lấy danh sách nhăn tin gần đây
         nodeInfoMine.child(uidFriendChat).setValue(new RecentlyChat(FirebaseAuth.getInstance().getUid(),uidFriendChat,nameFriendChat,
-                contentMessage,type, timeMsg,false)); // gửi tin nhắn cuối mặc định là chưa xem
+                contentMessage,type, timeMsg,false));
 
         nodeInfoFriend = FirebaseDatabase.getInstance().getReference().child("more_info")
                 .child(uidFriendChat).child("last_messages");
@@ -314,7 +319,7 @@ public class ChatWithFriendActivity extends AppCompatActivity implements ValueEv
             nodeRefreshMessage.addValueEventListener(this);
             filePath = data.getData();
             try {
-                final String nameImage = UUID.randomUUID().toString(); // tạo tên bất kì cho ảnh
+                final String nameImage = UUID.randomUUID().toString();
 
                 StorageReference ref = storageReference.child(FirebaseAuth.getInstance().getUid())
                         .child(uidFriendChat).child(nameImage+".jpg");
@@ -330,7 +335,7 @@ public class ChatWithFriendActivity extends AppCompatActivity implements ValueEv
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(ChatWithFriendActivity.this,
-                                        "Lỗi upload ảnh. Kiểm tra lại ảnh hoặc kết nội Internet của bạn",Toast.LENGTH_SHORT).show();
+                                        "Error uploading image. Check your photo or Internet link",Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -352,7 +357,7 @@ public class ChatWithFriendActivity extends AppCompatActivity implements ValueEv
             nodeRefreshMessage.addValueEventListener(this);
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             try {
-                final String nameImage = UUID.randomUUID().toString(); // tạo tên bất kì cho ảnh
+                final String nameImage = UUID.randomUUID().toString();
 
                 StorageReference ref = storageReference.child(FirebaseAuth.getInstance().getUid())
                         .child(uidFriendChat).child(nameImage+".jpg");
@@ -363,7 +368,7 @@ public class ChatWithFriendActivity extends AppCompatActivity implements ValueEv
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(ChatWithFriendActivity.this,"Không nhận được ảnh vui lòng kiểm tra lại!!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(ChatWithFriendActivity.this,"Do not receive photos, please check again!!",Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override

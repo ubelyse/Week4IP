@@ -14,6 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.eventrese.R;
+import com.example.eventrese.fragments.DatePickerFragment;
+import com.example.eventrese.models.Doctor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

@@ -172,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 Bundle bundle = new Bundle();
                                                 bundle.putString("UID", uid);
                                                 intent.putExtras(bundle);
-                                                overridePendingTransition(R.anim.animation_in,R.anim.animation_out);
+                                                overridePendingTransition(R.animator.animation_in,R.animator.animation_out);
                                                 startActivity(intent);
                                                 finish();
                                             }
@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 Bundle bundle = new Bundle();
                                                 bundle.putString("UID", uid);
                                                 intent.putExtras(bundle);
-                                                overridePendingTransition(R.anim.animation_in,R.anim.animation_out);
+                                                overridePendingTransition(R.animator.animation_in,R.animator.animation_out);
                                                 startActivity(intent);
                                                 finish();
                                             }
@@ -198,39 +198,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                         }
                                     });
-                                    /*databaseReference.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if(snapshot.hasChild("isAdmin")){
-                                                //Toast.makeText(LoginActivity.this, "Admin logged in", Toast.LENGTH_SHORT).show();
-                                                saveFile(email,password);
-                                                Intent intent = new Intent(LoginActivity.this, Admin.class);
-                                                String uid = firebaseAuth.getCurrentUser().getUid();
-                                                Bundle bundle = new Bundle();
-                                                bundle.putString("UID", uid);
-                                                intent.putExtras(bundle);
-                                                overridePendingTransition(R.anim.animation_in,R.anim.animation_out);
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                             if (!snapshot.hasChild("isAdmin")){
-                                                saveFile(email,password);
-                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                String uid = firebaseAuth.getCurrentUser().getUid();
-                                                Bundle bundle = new Bundle();
-                                                bundle.putString("UID", uid);
-                                                intent.putExtras(bundle);
-                                                overridePendingTransition(R.anim.animation_in,R.anim.animation_out);
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                        }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });*/
                                 }
                             }
                         });
