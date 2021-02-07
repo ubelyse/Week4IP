@@ -43,23 +43,23 @@ public class FirebaseEventViewHolder extends RecyclerView.ViewHolder implements 
         mContext = itemView.getContext();
     }
 
-    public void bindRestaurant(Event restaurant){
-        mEventImageView = mView.findViewById(R.id.restaurantImageView);
-        TextView nameTextView = mView.findViewById(R.id.restaurantNameTextView);
+    public void bindEvent(Event event){
+        mEventImageView = mView.findViewById(R.id.eventImageView);
+        TextView nameTextView = mView.findViewById(R.id.eventNameTextView);
         TextView categoryTextView = mView.findViewById(R.id.categoryTextView);
 
-        if (!restaurant.getImageUrl().contains("http")){
+        if (!event.getImageUrl().contains("http")){
             try {
-                Bitmap imageBitmap = decodeFromFirebaseBase64(restaurant.getImageUrl());
-                mRestaurantImageView.setImageBitmap(imageBitmap);
+                Bitmap imageBitmap = decodeFromFirebaseBase64(event.getImageUrl());
+                mEventImageView.setImageBitmap(imageBitmap);
             } catch (IOException e){
                 e.printStackTrace();
             }
         }else {
-            Picasso.get().load(restaurant.getImageUrl()).into(mRestaurantImageView);
+            Picasso.get().load(event.getImageUrl()).into(mEventImageView);
         }
-        nameTextView.setText(restaurant.getName());
-        categoryTextView.setText(restaurant.getCategory());
+        nameTextView.setText(event.getName());
+        categoryTextView.setText(event.getCategory());
     }
 
     public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
