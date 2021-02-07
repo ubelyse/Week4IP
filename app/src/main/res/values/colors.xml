@@ -13,14 +13,19 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="gray">#8F8F8F</color>
+    <color name="white">#FFF</color>
     <color name="main_green">#86B2B3</color>
     <color name="soft_main_green">#9CC2BF</color>
     <color name="main_orange">#ff741e</color>
     <color name="soft_main_orange">#ff904c</color>
+    <color name="black">#000</color>
     <color name="main_red">#ff0000</color>
     <color name="soft_main_red">#ff2121</color>
 
-    <color name="colorTextIcons">#FFFFFF</color>
-    <color name="colorSecondaryText">#727272</color>
-    <color name="colorDivider">#B6B6B6</color>
+    <color name="transparent">#00000000</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_500">#a4a4a4</color>
+    <color name="grey_100">#F5F5F5</color>
+
+    <color name="red">#F73E7C</color>
 </resources>
