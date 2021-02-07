@@ -14,9 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.tnac.Adapters.NoteAdapter;
-import com.example.tnac.Models.Doctor;
-import com.example.tnac.R;
+import com.example.eventrese.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

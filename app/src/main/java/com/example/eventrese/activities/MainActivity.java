@@ -12,12 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.tnac.Adapters.ViewPagerAdapter;
-import com.example.tnac.Fragments.FriendsFragment;
-import com.example.tnac.Fragments.MessagesFragment;
-import com.example.tnac.Fragments.PersonalFragment;
-import com.example.tnac.Fragments.SettingsFragment;
-import com.example.tnac.R;
+import com.example.eventrese.adapters.ViewPagerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

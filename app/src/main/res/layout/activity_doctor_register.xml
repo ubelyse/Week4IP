@@ -10,35 +10,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        android:text="Sign up for an account"
+        android:text="@string/register_doctor_account"
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"/>
 
     <!--<ImageView-->
-        <!--android:id="@+id/imageViewLogo"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/logo"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="@dimen/margin_top_register_10dp"/>-->
+    <!--android:id="@+id/imageViewLogo"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/logo"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginTop="@dimen/margin_top_register_10dp"/>-->
 
     <EditText
         android:id="@+id/editTextUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/labelRegister"
-        android:layout_marginTop="@dimen/margin_top_register_10dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="@dimen/margin_top_register_10dp"
         android:layout_marginRight="30dp"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
+        android:background="@drawable/selector_background_edit_text"
         android:drawableStart="@drawable/drawable_email"
         android:drawablePadding="5dp"
-        android:background="@drawable/selector_background_edit_text"
-        android:padding="@dimen/padding_edit_text_7dp"
-        />
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:padding="@dimen/padding_edit_text_7dp" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -168,12 +167,27 @@
         android:drawablePadding="5dp"
         android:background="@drawable/selector_background_edit_text"
         android:padding="@dimen/padding_edit_text_7dp"
-        android:layout_marginTop="@dimen/margin_top_register_10dp"
-        />
+        android:layout_marginTop="@dimen/margin_top_register_10dp" />
+
+    <EditText
+        android:id="@+id/editRole"
+        android:layout_below="@id/editTextPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_centerVertical="true"
+        android:hint="@string/role"
+        android:inputType="text"
+        android:maxLength="11"
+        android:drawablePadding="5dp"
+        android:background="@drawable/selector_background_edit_text"
+        android:padding="@dimen/padding_edit_text_7dp"
+        android:layout_marginTop="@dimen/margin_top_register_10dp" />
 
     <EditText
         android:id="@+id/editTextDateOfBirth"
-        android:layout_below="@id/editTextPhoneNumber"
+        android:layout_below="@+id/editRole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -196,6 +210,7 @@
         android:layout_below="@id/editTextDateOfBirth"
         android:gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_top_register_10dp">
+
         <Button
             android:id="@+id/buttonRegister"
             android:layout_width="wrap_content"
@@ -206,8 +221,7 @@
             android:background="@drawable/round_button"
             android:layout_weight="3"
             android:layout_marginStart="30dp"
-            android:layout_marginEnd="20dp"
-            />
+            android:layout_marginEnd="20dp"/>
 
         <Button
             android:id="@+id/buttonCancelRegister"

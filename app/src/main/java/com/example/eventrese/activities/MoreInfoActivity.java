@@ -14,10 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.tnac.Adapters.ListMediaStorageAdapter;
-import com.example.tnac.Models.Account;
-import com.example.tnac.Models.Message;
-import com.example.tnac.R;
+import com.example.eventrese.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

@@ -15,9 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.tnac.Fragments.DatePickerFragment;
-import com.example.tnac.Models.Account;
-import com.example.tnac.R;
+import com.example.eventrese.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

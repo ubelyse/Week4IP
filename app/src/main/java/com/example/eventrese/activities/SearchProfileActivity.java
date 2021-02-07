@@ -17,10 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.tnac.Models.Account;
-import com.example.tnac.Models.FriendRequest;
-import com.example.tnac.Models.User;
-import com.example.tnac.R;
+import com.example.eventrese.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

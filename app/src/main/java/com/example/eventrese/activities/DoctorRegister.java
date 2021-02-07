@@ -13,9 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.tnac.Fragments.DatePickerFragment;
-import com.example.tnac.Models.Doctor;
-import com.example.tnac.R;
+import com.example.eventrese.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

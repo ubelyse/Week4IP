@@ -24,15 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tnac.Adapters.RecyclerListMessageAdapter;
-import com.example.tnac.Controllers.MessageController;
-import com.example.tnac.Fragments.AudioMessageFragment;
-import com.example.tnac.Interfaces.GetAudioFromRecordFragment;
-import com.example.tnac.Models.Account;
-import com.example.tnac.Models.Doctor;
-import com.example.tnac.Models.Message;
-import com.example.tnac.Models.RecentlyChat;
-import com.example.tnac.R;
+import com.example.eventrese.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
