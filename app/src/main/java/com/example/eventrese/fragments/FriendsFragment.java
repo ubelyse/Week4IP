@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.eventrese.R;
-import com.example.eventrese.adapters.UserAdapter;
-import com.example.eventrese.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

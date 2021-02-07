@@ -29,7 +29,6 @@ import android.widget.Toast;
 
 import com.example.eventrese.Constants;
 import com.example.eventrese.R;
-import com.example.eventrese.models.Event;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

@@ -1,20 +1,7 @@
 package com.example.eventrese.models;
 
 
-
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class User {
-    private String id;
+public class Account {
     private String username;
     private String fullName;
     private String address;
@@ -22,32 +9,24 @@ public class User {
     private boolean gender;
     private String phoneNumber;
     private String dateOfBirth;
-    private String search;
 
-    public User() {
+    public Account()
+    {
+
     }
 
-    public User(String id,String username, String fullName, String address, String description, boolean gender, String phoneNumber, String dateOfBirth, String search) {
-        this.id = id;
+    public Account(String username, String description, String fullName, boolean gender, String address,
+                   String phoneNumber, String dateOfBirth) {
         this.username = username;
-        this.fullName = fullName;
-        this.address = address;
         if(description.isEmpty())
             this.description = "Description is not available";
         else
             this.description = description;
-        this.gender = gender;
+        this.fullName = fullName;
+        this.address = address;
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
-        this.search = search;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.gender = gender;
     }
 
     public String getUsername() {
@@ -66,28 +45,20 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public boolean isGender() {
         return gender;
     }
 
     public void setGender(boolean gender) {
         this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhoneNumber() {
@@ -106,11 +77,12 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getSearch() {
-        return search;
+    public String getDescription() {
+        return description;
     }
 
-    public void setSearch(String search) {
-        this.search = search;
+    public void setDescription(String description) {
+        this.description = description;
     }
+
 }

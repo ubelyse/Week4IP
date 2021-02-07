@@ -1,8 +1,6 @@
 package com.example.eventrese.network;
 
 
-import com.example.eventrese.models.EventSearch;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
