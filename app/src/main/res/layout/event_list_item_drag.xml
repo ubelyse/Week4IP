@@ -12,7 +12,7 @@
         <ImageView
             android:layout_width="130dp"
             android:layout_height="100dp"
-            android:id="@+id/restaurantImageView"
+            android:id="@+id/eventImageView"
             android:src="@drawable/food_dish"
             android:scaleType="centerCrop"/>
 
@@ -20,8 +20,8 @@
             android:id="@+id/dragIcon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignLeft="@id/restaurantImageView"
-            android:layout_alignBottom="@id/restaurantImageView"
+            android:layout_alignLeft="@id/eventImageView"
+            android:layout_alignBottom="@id/eventImageView"
             android:gravity="bottom|left"
             android:src="@drawable/ic_reorder_white_24dp"/>
 
@@ -36,10 +36,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/restaurantNameTextView"
+            android:id="@+id/eventNameTextView"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:text="Restaurant Name"
+            android:text="Event Name"
             android:textColor="@color/colorPrimary"/>
 
         <TextView
@@ -47,24 +47,11 @@
             android:layout_height="wrap_content"
             android:text="One Cuisine Type"
             android:id="@+id/categoryTextView"
-            android:layout_below="@+id/restaurantNameTextView"
+            android:layout_below="@+id/eventNameTextView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textStyle="italic"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rating"
-                android:id="@+id/ratingTextView"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/colorAccent"/>
-        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

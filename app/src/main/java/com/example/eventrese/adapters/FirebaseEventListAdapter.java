@@ -38,7 +38,7 @@ public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<Event, Fir
     private OnStartDragListener mOnStartDragListener;
     private Context mContext;
     private ChildEventListener mChildEventListener;
-    private ArrayList<Event> mRestaurants = new ArrayList<>();
+    private ArrayList<Event> mEvents = new ArrayList<>();
     private int mOrientation;
 
     public FirebaseEventListAdapter(FirebaseRecyclerOptions<Event> options,
@@ -53,7 +53,7 @@ public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<Event, Fir
         mChildEventListener = mRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                mRestaurants.add(dataSnapshot.getValue(Event.class));
+                mEvents.add(dataSnapshot.getValue(Event.class));
             }
 
             @Override
@@ -79,15 +79,15 @@ public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<Event, Fir
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final FirebaseEventViewHolder firebaseEventViewHolder, int position, @NonNull Restaurant restaurant) {
-        firebaseEventViewHolder.bindRestaurant(restaurant);
+    protected void onBindViewHolder(@NonNull final FirebaseEventViewHolder firebaseEventViewHolder, int position, @NonNull Event event) {
+        firebaseEventViewHolder.bindEvent(event);
 
         mOrientation = firebaseEventViewHolder.itemView.getResources().getConfiguration().orientation;
         if (mOrientation == Configuration.ORIENTATION_LANDSCAPE){
             createDetailFragment(0);
         }
 
-        firebaseEventViewHolder.mRestaurantImageView.setOnTouchListener(new View.OnTouchListener() {
+        firebaseEventViewHolder.mEventImageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getActionMasked() == MotionEvent.ACTION_DOWN){
@@ -106,7 +106,7 @@ public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<Event, Fir
                 } else {
                     Intent intent = new Intent(mContext, EventDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
-                    intent.putExtra(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
+                    intent.putExtra(Constants.EXTRA_KEY_EVENTS, Parcels.wrap(mEvents));
                     intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_SAVED);
                     mContext.startActivity(intent);
                 }
@@ -115,12 +115,10 @@ public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<Event, Fir
     }
 
     private void createDetailFragment(int position){
-        // Creates new RestaurantDetailFragment with the given position:
-        EventDetailFragment detailFragment = EventDetailFragment.newInstance(mRestaurants, position, Constants.SOURCE_SAVED);
-        // Gathers necessary components to replace the FrameLayout in the layout with the RestaurantDetailFragment:
+
+        EventDetailFragment detailFragment = EventDetailFragment.newInstance(mEvents, position, Constants.SOURCE_SAVED);
         FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
-        //  Replaces the FrameLayout with the RestaurantDetailFragment:
-        ft.replace(R.id.restaurantDetailContainer, detailFragment);
+        ft.replace(R.id.eventDetailContainer, detailFragment);
         // Commits these changes:
         ft.commit();
     }
@@ -134,7 +132,7 @@ public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<Event, Fir
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition){
-        Collections.swap(mRestaurants, fromPosition, toPosition);
+        Collections.swap(mEvents, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
         setIndexInFirebase();
         return false;
@@ -142,13 +140,13 @@ public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<Event, Fir
 
     @Override
     public void onItemDismiss(int position){
-        mRestaurants.remove(position);
+        mEvents.remove(position);
         getRef(position).removeValue();
     }
 
     private void setIndexInFirebase(){
-        for(Event restaurant: mRestaurants){
-            int index = mRestaurants.indexOf(restaurant);
+        for(Event event: mEvents){
+            int index = mEvents.indexOf(event);
             DatabaseReference ref = getRef(index);
             ref.child("index").setValue(Integer.toString(index));
         }

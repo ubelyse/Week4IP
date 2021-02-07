@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class FirebaseEventViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
     View mView;
     Context mContext;
-    public ImageView mRestaurantImageView;
+    public ImageView mEventImageView;
 
     public FirebaseEventViewHolder(View itemView){
         super(itemView);
@@ -44,7 +44,7 @@ public class FirebaseEventViewHolder extends RecyclerView.ViewHolder implements 
     }
 
     public void bindRestaurant(Event restaurant){
-        mRestaurantImageView = mView.findViewById(R.id.restaurantImageView);
+        mEventImageView = mView.findViewById(R.id.restaurantImageView);
         TextView nameTextView = mView.findViewById(R.id.restaurantNameTextView);
         TextView categoryTextView = mView.findViewById(R.id.categoryTextView);
 

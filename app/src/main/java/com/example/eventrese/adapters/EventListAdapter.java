@@ -59,10 +59,9 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        @BindView(R.id.restaurantImageView) ImageView mRestaurantImageView;
-        @BindView(R.id.restaurantNameTextView) TextView mNameTextView;
+        @BindView(R.id.eventImageView) ImageView meventImageView;
+        @BindView(R.id.eventNameTextView) TextView mNameTextView;
         @BindView(R.id.categoryTextView) TextView mCategoryTextView;
-        @BindView(R.id.ratingTextView) TextView mRatingTextView;
 
         private Context mContext;
         private int mOrientation;
@@ -73,28 +72,22 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
-            // Determines the current orientation of the device:
+
             mOrientation = itemView.getResources().getConfiguration().orientation;
 
             mEvents = events;
-            eventSelectedListener = eventSelectedListener;
 
-            // Checks if the recorded orientation matches Android's landscape configuration.
-            // if so, we create a new DetailFragment to display in our special landscape layout:
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE){
                 createDetailFragment(0);
             }
             itemView.setOnClickListener(this);
         }
 
-        // Takes position of restaurant in list as parameter:
         private void createDetailFragment(int position){
-            // Creates new RestaurantDetailFragment with the given position:
+
             EventDetailFragment detailFragment = EventDetailFragment.newInstance(mEvents, position, Constants.SOURCE_FIND);
-            // Gathers necessary components to replace the FrameLayout in the layout with the RestaurantDetailFragment:
             FragmentTransaction ft = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-            //  Replaces the FrameLayout with the RestaurantDetailFragment:
-            ft.replace(R.id.restaurantDetailContainer, detailFragment);
+            ft.replace(R.id.eventDetailContainer, detailFragment);
             // Commits these changes:
             ft.commit();
         }
@@ -102,20 +95,19 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         public void bindEvents(Event event) {
             mNameTextView.setText(event.getName());
             mCategoryTextView.setText(event.getCategory());
-            Picasso.get().load(event.getImageUrl()).into(mRestaurantImageView);
+            Picasso.get().load(event.getImageUrl()).into(meventImageView);
         }
 
         @Override
         public void onClick(View v){
-            // Determines the position of the restaurant clicked:
             int itemPosition = getLayoutPosition();
-            eventSelectedListener.onRestaurantSelected(itemPosition, mEvents, Constants.SOURCE_FIND);
+            eventSelectedListener.onEventSelected(itemPosition, mEvents, Constants.SOURCE_FIND);
             if(mOrientation == Configuration.ORIENTATION_LANDSCAPE){
                 createDetailFragment(itemPosition);
             } else {
                 Intent intent = new Intent(mContext, EventDetailActivity.class);
                 intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
-                intent.putExtra(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mEvents));
+                intent.putExtra(Constants.EXTRA_KEY_EVENTS, Parcels.wrap(mEvents));
                 intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
                 mContext.startActivity(intent);
             }
