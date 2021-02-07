@@ -34,7 +34,7 @@ public class EventsActivity extends AppCompatActivity {
 
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
     @BindView(R.id.errorTextView) TextView mErrorTextView;
-    @BindView(R.id.progressBar) ProgressBar mProgressBar;
+   // @BindView(R.id.progressBar) ProgressBar mProgressBar;
 
     private EventListAdapter mAdapter;
 
@@ -56,8 +56,8 @@ public class EventsActivity extends AppCompatActivity {
         call.enqueue(new Callback<EventSearch>() {
             @Override
             public void onResponse(Call<EventSearch> call, Response<EventSearch> response) {
-
                 if (response.isSuccessful()) {
+                    //hideProgressBar();
                     events = response.body().getEvents();
                     mAdapter = new EventListAdapter(EventsActivity.this, events);
                     mRecyclerView.setAdapter(mAdapter);
@@ -65,7 +65,6 @@ public class EventsActivity extends AppCompatActivity {
                             new LinearLayoutManager(EventsActivity.this);
                     mRecyclerView.setLayoutManager(layoutManager);
                     mRecyclerView.setHasFixedSize(true);
-                    hideProgressBar();
                     showRestaurants();
                 } else {
                     showUnsuccessfulMessage();
@@ -74,7 +73,7 @@ public class EventsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<EventSearch> call, Throwable t) {
-                hideProgressBar();
+                //hideProgressBar();
                 showFailureMessage();
             }
 
@@ -94,7 +93,7 @@ public class EventsActivity extends AppCompatActivity {
         mRecyclerView.setVisibility(View.VISIBLE);
     }
 
-    private void hideProgressBar() {
+   /* private void hideProgressBar() {
         mProgressBar.setVisibility(View.GONE);
-    }
+    }*/
 }
