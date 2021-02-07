@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eventrese.R;
+import com.example.eventrese.fragments.ImageMessageFragment;
 import com.example.eventrese.models.Message;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -88,10 +89,6 @@ public class RecyclerListMessageAdapter extends RecyclerView.Adapter<RecyclerLis
 
             textViewMessageTimeAudioMine = itemView.findViewById(R.id.textViewAudioMessageTimeMine);
             textViewMessageTimeAudioFriend = itemView.findViewById(R.id.textViewAudioMessageTimeFriend);
-
-//            avatarSeen = itemView.findViewById(R.id.avatarSeen);
-//            avatarSeenImage = itemView.findViewById(R.id.avatarSeenImage);
-//            avatarSeenAudio = itemView.findViewById(R.id.avatarSeenAudio);
 
         }
     }

@@ -25,8 +25,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eventrese.R;
+import com.example.eventrese.activities.ChatWithFriendActivity;
 import com.example.eventrese.adapters.ListFriendAdapter;
 import com.example.eventrese.models.Account;
+import com.example.eventrese.models.AccountRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -92,18 +94,8 @@ public class FriendsFragment extends Fragment{
                         }
                     }
                 }
-                /*DataSnapshot nodeUsers = dataSnapshot.child("users");
-                for (DataSnapshot snapshot : nodeUsers.getChildren()) {
-                    if (!snapshot.getKey().equals(FirebaseAuth.getInstance().getUid())) {
-                        Account account = snapshot.getValue(Account.class);
-                        if (!hashMapFriends.containsValue(account)) { // check your friends list without friends
-                            hashMapFriends.put(snapshot.getKey(), account);
-                        }
-                    }
-                }*/
-                listFriendAdapter.notifyDataSetChanged();
 
-               // If there is notice of making friends or adding new friends, the effect list
+                listFriendAdapter.notifyDataSetChanged();
             }
 
             @Override
