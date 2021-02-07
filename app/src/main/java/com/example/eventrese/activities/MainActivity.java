@@ -1,31 +1,28 @@
-package com.example.eventrese.ui;
+package com.example.eventrese.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.TabHost;
 
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.eventrese.R;
-import com.example.eventrese.adapters.ViewPagerAdapter;
-import com.example.eventrese.fragments.FriendsFragment;
-import com.example.eventrese.fragments.MessagesFragment;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.tnac.Adapters.ViewPagerAdapter;
+import com.example.tnac.Fragments.FriendsFragment;
+import com.example.tnac.Fragments.MessagesFragment;
+import com.example.tnac.Fragments.PersonalFragment;
+import com.example.tnac.Fragments.SettingsFragment;
+import com.example.tnac.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 import java.util.Vector;
-
-import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
 
@@ -34,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     private ViewPagerAdapter myViewPagerAdapter;
     private int i = 0;
     private Bundle bundle;
+
 
     // fake content for tabhost
     class FakeContent implements TabHost.TabContentFactory {
@@ -73,23 +71,30 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     }
 
     private void initializeViewPager() {
-        List<Fragment> fragments = new Vector<Fragment>();
+       List<Fragment> fragments = new Vector<Fragment>();
 
-        // transfer data from MainActivity via PersonalFragment
-        bundle = getIntent().getExtras();
-//        String uid = bundle.getString("UID");
+            // transfer data from MainActivity via PersonalFragment
+            bundle = getIntent().getExtras();
+        String uid = null;
+        if (bundle != null) {
+            uid = bundle.getString("UID");
+        }
 
         Bundle info = new Bundle();
- //      info.putString("UID",uid);
+            info.putString("UID", uid);
+            PersonalFragment personalFragment = new PersonalFragment();
+            personalFragment.setArguments(info); //
 
-        fragments.add(new MessagesFragment());
-        fragments.add(new FriendsFragment());
+            fragments.add(new MessagesFragment());
+            fragments.add(new FriendsFragment());
+            fragments.add(personalFragment);
+            fragments.add(new SettingsFragment());
 
-        this.myViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
-        this.viewPager = (ViewPager) super.findViewById(R.id.viewPager);
-        this.viewPager.setAdapter(this.myViewPagerAdapter);
-        this.viewPager.setOnPageChangeListener(this);
-        onRestart();
+            this.myViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
+            this.viewPager = (ViewPager) super.findViewById(R.id.viewPager);
+            this.viewPager.setAdapter(this.myViewPagerAdapter);
+            this.viewPager.setOnPageChangeListener(this);
+            onRestart();
 
     }
 
@@ -107,6 +112,17 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         tabFriends.setIndicator("",getResources().getDrawable(R.drawable.icon_friends_selector));
         tabFriends.setContent(new FakeContent(MainActivity.this));
         tabHost.addTab(tabFriends);
+
+        TabHost.TabSpec tabPersonal = tabHost.newTabSpec("I");
+        tabPersonal.setIndicator("",getResources().getDrawable(R.drawable.icon_personal_selector));
+        tabPersonal.setContent(new FakeContent(MainActivity.this));
+        tabHost.addTab(tabPersonal);
+
+        TabHost.TabSpec tabSettings = tabHost.newTabSpec("Setting");
+        tabSettings.setIndicator("",getResources().getDrawable(R.drawable.icon_settings_selector));
+        tabSettings.setContent(new FakeContent(MainActivity.this));
+        tabHost.addTab(tabSettings);
+
 
         tabHost.setOnTabChangedListener(this);
     }
@@ -130,39 +146,5 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     public void onTabChanged(String tabId) {
         int pos = this.tabHost.getCurrentTab();
         this.viewPager.setCurrentItem(pos);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_logout) {
-            logout();
-            return true;
-        }
-        else if(id==R.id.action_event){
-            Intent intent=new Intent(MainActivity.this,FindEvents.class);
-            startActivity(intent);
-        }
-        else if(id==R.id.action_saved_events){
-            Intent intent=new Intent(MainActivity.this,SavedEventstListActivity.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void logout() {
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 }
