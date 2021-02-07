@@ -32,13 +32,14 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<Event, FirebaseEventViewHolder> implements ItemTouchHelperAdapter {
     private Query mRef;
     private OnStartDragListener mOnStartDragListener;
     private Context mContext;
     private ChildEventListener mChildEventListener;
-    private ArrayList<Event> mEvents = new ArrayList<>();
+    private List<Event> mEvents;
     private int mOrientation;
 
     public FirebaseEventListAdapter(FirebaseRecyclerOptions<Event> options,

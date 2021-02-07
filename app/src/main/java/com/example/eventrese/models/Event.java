@@ -101,7 +101,8 @@ public class Event {
      * @param category
      * @param longitude
      */
-    public Event(Integer attendingCount, String category, Double cost, Double costMax, String description, String eventSiteUrl, String id, String imageUrl, Integer interestedCount, Boolean isCanceled, Boolean isFree, Boolean isOfficial, Double latitude, Double longitude, String name, String ticketsUrl, String timeEnd, String timeStart, Location location, String businessId, String index) {
+    private String pushId;
+    public Event(Integer attendingCount, String category, Double cost, Double costMax, String description, String eventSiteUrl, String id, String imageUrl, Integer interestedCount, Boolean isCanceled, Boolean isFree, Boolean isOfficial, Double latitude, Double longitude, String name, String ticketsUrl, String timeEnd, String timeStart, Location location, String businessId) {
         super();
         this.attendingCount = attendingCount;
         this.category = category;
@@ -123,7 +124,15 @@ public class Event {
         this.timeStart = timeStart;
         this.location = location;
         this.businessId = businessId;
-        this.index=index;
+        this.index="none";
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 
     public String getIndex() {

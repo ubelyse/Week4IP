@@ -17,25 +17,22 @@ import com.example.eventrese.Constants;
 import com.example.eventrese.R;
 import com.example.eventrese.fragments.EventDetailFragment;
 import com.example.eventrese.models.Event;
-import com.example.eventrese.models.Events;
 import com.example.eventrese.ui.EventDetailActivity;
 import com.example.eventrese.util.OnEventSelectedListener;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHolder> {
-    private ArrayList<Event> mEvents = new ArrayList<>();
+    private List<Event> mEvents;
     private Context mContext;
     private OnEventSelectedListener meventSelectedListener;
 
-    public EventListAdapter(Context context, ArrayList<Event> events, OnEventSelectedListener eventSelectedListener){
+    public EventListAdapter(Context context, List<Event> events, OnEventSelectedListener eventSelectedListener){
         mContext = context;
         mEvents = events;
         meventSelectedListener = eventSelectedListener;
@@ -65,10 +62,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
         private Context mContext;
         private int mOrientation;
-        private ArrayList<Event> mEvents = new ArrayList<>();
+        private List<Event> mEvents;
         private OnEventSelectedListener eventSelectedListener;
 
-        public EventViewHolder(View itemView, ArrayList<Event> events, OnEventSelectedListener eventSelectedListener){
+        public EventViewHolder(View itemView, List<Event> events, OnEventSelectedListener eventSelectedListener){
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();

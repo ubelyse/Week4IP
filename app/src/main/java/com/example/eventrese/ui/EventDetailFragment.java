@@ -44,8 +44,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,7 +59,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     @BindView(R.id.saveEventButton) TextView mSaveEventButton;
 
     private Event mEvent;
-    private ArrayList<Event> mEvents;
+    private List<Event> mEvents;
     private int mPosition;
     private String mSource;
 
@@ -73,7 +73,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         // Required empty public constructor
     }
 
-    public static EventDetailFragment newInstance(ArrayList<Event> events, Integer position, String source){
+    public static EventDetailFragment newInstance(List<Event> events, Integer position, String source){
         EventDetailFragment eventDetailFragment = new EventDetailFragment();
         Bundle args = new Bundle();
 
@@ -287,7 +287,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         DatabaseReference ref = FirebaseDatabase.getInstance()
                 .getReference(Constants.FIREBASE_CHILD_EVENTS)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child(mEvent.getId())
+                .child(mEvent.getPushId())
                 .child("imageUrl");
         ref.setValue(imageEncoded);
     }
@@ -322,7 +322,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
                     } else{
                         DatabaseReference pushRef = eventRef.push();
                         String pushId = pushRef.getKey();
-                        mEvent.setId(pushId);
+                        mEvent.setPushId(pushId);
                         pushRef.setValue(mEvent);
                         Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
 

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ import com.example.eventrese.util.OnEventSelectedListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,10 +40,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EventListFragment extends Fragment {
-    @BindView(R.id.recyclerView)
-    RecyclerView mRecyclerView;
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.errorTextView) TextView mErrorTextView;
     private EventListAdapter mAdapter;
-    private ArrayList<Event> events = new ArrayList<>();
+    private List<Event> events = new ArrayList<>();
 
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
@@ -87,13 +89,14 @@ public class EventListFragment extends Fragment {
     public void getEvents(String location){
         YelpApi client = YelpService.getClient();
 
-        retrofit2.Call<EventSearch> call = client.getEvents(location, "event");
+        Call<EventSearch> call = client.getEvents(location, "event");
 
         call.enqueue(new Callback<EventSearch>() {
             @Override
-            public void onResponse(retrofit2.Call<EventSearch> call, Response<EventSearch> response) {
+            public void onResponse(Call<EventSearch> call, Response<EventSearch> response) {
+
                 if (response.isSuccessful()) {
-                    events = (ArrayList<Event>) response.body().getEvents();
+                    events = response.body().getEvents();
                     mAdapter = new EventListAdapter(getActivity(), events,mOnEventSelectedListener);
                     mRecyclerView.setAdapter(mAdapter);
                     RecyclerView.LayoutManager layoutManager =
@@ -103,16 +106,25 @@ public class EventListFragment extends Fragment {
 
                     showEvents();
                 } else {
-                    Toast.makeText(getActivity(), "Something went wrong. Please check your Internet connection and try again later", Toast.LENGTH_SHORT).show();
+                    showUnsuccessfulMessage();
                 }
             }
 
             @Override
             public void onFailure(Call<EventSearch> call, Throwable t) {
-                Toast.makeText(getActivity(), "Something went wrong. Please check your Internet connection and try again later", Toast.LENGTH_SHORT).show();
+                showFailureMessage();
             }
 
         });
+    }
+
+    private void showFailureMessage() {
+        mErrorTextView.setText("Something went wrong. Please try again later");
+    }
+
+    private void showUnsuccessfulMessage() {
+        mErrorTextView.setVisibility(View.VISIBLE); mErrorTextView.setText("Something went wrong. Please try again later");
+        mErrorTextView.setVisibility(View.VISIBLE);
     }
 
     @Override

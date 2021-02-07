@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventPagerAdapter extends FragmentPagerAdapter {
-    private ArrayList<Event> mEvents;
+    private List<Event> mEvents;
     private String mSource;
 
-    public EventPagerAdapter(FragmentManager fm, ArrayList<Event> events, String source){
+    public EventPagerAdapter(FragmentManager fm, List<Event> events, String source){
         super(fm);
         mEvents = events;
         mSource = source;

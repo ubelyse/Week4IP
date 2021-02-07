@@ -1,22 +1,8 @@
 package com.example.eventrese.network;
 
 
-import com.example.eventrese.Constants;
-import com.example.eventrese.models.Event;
-import com.example.eventrese.models.Events;
-import com.example.eventrese.models.Location;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -57,8 +43,7 @@ public class YelpService {
         return retrofit.create(YelpApi.class);
     }
 
-
-    /*public static void findRestaurants(String location, Callback callback){
+    /*public static void findEvents(String location, Callback callback){
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
@@ -75,46 +60,41 @@ public class YelpService {
         call.enqueue(callback);
     }
 
-    public ArrayList<Events> processResults(Response response){
-        ArrayList<Events> restaurants = new ArrayList<>();
+    public ArrayList<Event> processResults(Response response){
+        ArrayList<Event> events = new ArrayList<>();
         try{
             String jsonData = response.body().string();
             JSONObject yelpJSON = new JSONObject(jsonData);
-            JSONArray businessesJSON = yelpJSON.getJSONArray("events");
+            JSONArray eventsJSON = yelpJSON.getJSONArray("events");
             if (response.isSuccessful()){
-                for (int i = 0; i < businessesJSON.length(); i++){
-                    JSONObject restaurantJSON = businessesJSON.getJSONObject(i);
-                    Integer attendingCount= restaurantJSON.getInt("attendingCount");
-                    String category = restaurantJSON.getString("category");
-                    double cost=restaurantJSON.getJSONObject("cost").getDouble("cost");
-                    double costMax=restaurantJSON.getJSONObject("costMax").getDouble("costMax");
-                    String description=restaurantJSON.getString("description");
-                    String id=restaurantJSON.getString("id");
-                    String businessId=restaurantJSON.getString("businessId");
-
-                    String event_site_url=restaurantJSON.getString("eventSiteUrl");
-                    String imageUrl = restaurantJSON.getString("image_url");
-                    Integer interestedCount= restaurantJSON.getInt("interestedCount");
-                    double latitude = restaurantJSON.getJSONObject("coordinates").getDouble("latitude");
-                    double longitude = restaurantJSON.getJSONObject("coordinates").getDouble("longitude");
-                    String name = restaurantJSON.getString("name");
-                    String ticketsUrl = restaurantJSON.getString("ticketsUrl");
-                    String timeEnd=restaurantJSON.getString("timeEnd");
-                    String timeStart=restaurantJSON.getString("timeStart");
-                    Location location=new Location();
-
-                    Boolean isCanceled=restaurantJSON.getBoolean("isCanceled");
-                    Boolean isFree=restaurantJSON.getBoolean("isFree");
-                    Boolean isOfficial=restaurantJSON.getBoolean("isOfficial");
+                for (int i = 0; i < eventsJSON.length(); i++){
+                    JSONObject eventJSON = eventsJSON.getJSONObject(i);
+                    Integer attendingCount=eventJSON.getInt("1");
+                    String category=eventJSON.getString("category");
+                    Double cost=eventJSON.getJSONObject("price").getDouble("cost");
+                    Double costMax=eventJSON.getJSONObject("price").getDouble("costMax");
+                    String description=eventJSON.getString("description");
+                    String eventSiteUrl=eventJSON.getString("eventSiteUrl");
+                    String id=eventJSON.getString("id");
+                    String imageUrl=eventJSON.getString("imageUrl");
+                    Integer interestedCount=eventJSON.getInt("interestedCount");
+                    Boolean isCanceled=eventJSON.getBoolean("isCanceled");
+                    Boolean isFree=eventJSON.getBoolean("isFree");
+                    Boolean isOfficial=eventJSON.getBoolean("isOfficial");
+                    Double latitude=eventJSON.getJSONObject("coordinates").getDouble("latitude");
+                    Double longitude=eventJSON.getJSONObject("coordinates").getDouble("longitude");
+                    String name=eventJSON.getString("name");
+                    String ticketsUrl=eventJSON.getString("ticketsUrl");
+                    String timeEnd=eventJSON.getString("timeEnd");
+                    String timeStart=eventJSON.getString("timeStart");
+                    String businessId=eventJSON.getString("businessId");
+                    Location location = new Location();
 
 
-                    ArrayList<String> address = new ArrayList<>();
-                    JSONArray addressJSON = restaurantJSON.getJSONObject("location").getJSONArray("display_address");
-                    for (int y = 0; y < addressJSON.length(); y++){
-                        address.add(addressJSON.get(y).toString());
-                    }
-                    Events restaurant = new Events(attendingCount,category,cost,costMax,description,event_site_url,id,imageUrl,interestedCount,isCanceled,isFree,isOfficial,latitude,longitude,name,ticketsUrl, timeEnd,timeStart,businessId);
-                    restaurants.add(restaurant);
+
+                    Event event = new Event(attendingCount,category,cost,costMax,description,eventSiteUrl,id,imageUrl,interestedCount,
+                            isCanceled,isFree,isOfficial,latitude,longitude,name,ticketsUrl,timeEnd,timeStart,location,businessId);
+                    events.add(event);
                 }
             }
         } catch (IOException e) {
@@ -122,6 +102,6 @@ public class YelpService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return restaurants;
+        return events;
     }*/
 }
