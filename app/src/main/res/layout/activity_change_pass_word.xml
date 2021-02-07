@@ -5,22 +5,12 @@
     android:background="@color/white">
 
 
-    <ImageView
-        android:id="@+id/imgchangepassword"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:src="@drawable/logo_shake_hands"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="30dp"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeChangePassWord"
         android:layout_marginRight="10dp"
         android:layout_centerInParent="true"
-        android:layout_below="@+id/imgchangepassword"
         android:layout_marginLeft="10dp">
 
         <EditText android:id="@+id/editTextOldPassWord"
