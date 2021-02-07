@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import android.view.View;
@@ -14,13 +15,19 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import android.widget.TextView;
+
+import com.example.eventrese.Constants;
 import com.example.eventrese.R;
 import com.example.eventrese.adapters.EventListAdapter;
 import com.example.eventrese.models.Event;
 import com.example.eventrese.models.EventSearch;
 import com.example.eventrese.network.YelpApi;
 import com.example.eventrese.network.YelpService;
+import com.example.eventrese.util.OnEventSelectedListener;
 
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,71 +36,47 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EventsActivity extends AppCompatActivity {
-    private static final String TAG = EventsActivity.class.getSimpleName();
-
-    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
-    @BindView(R.id.errorTextView) TextView mErrorTextView;
-   // @BindView(R.id.progressBar) ProgressBar mProgressBar;
-
-    private EventListAdapter mAdapter;
-
-    public List<Event> events;
+public class EventsActivity extends AppCompatActivity implements OnEventSelectedListener {
+    private Integer mPosition;
+    ArrayList<Event> mEvents;
+    String mSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
-        ButterKnife.bind(this);
+        if (savedInstanceState != null){
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                mPosition = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
+                mEvents = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_EVENTS));
+                mSource = savedInstanceState.getString(Constants.KEY_SOURCE);
 
-        Intent intent = getIntent();
-        String location = intent.getStringExtra("location");
-
-        YelpApi client = YelpService.getClient();
-
-        Call<EventSearch> call = client.getEvents(location, "event");
-
-        call.enqueue(new Callback<EventSearch>() {
-            @Override
-            public void onResponse(Call<EventSearch> call, Response<EventSearch> response) {
-                if (response.isSuccessful()) {
-                    //hideProgressBar();
-                    events = response.body().getEvents();
-                    mAdapter = new EventListAdapter(EventsActivity.this, events);
-                    mRecyclerView.setAdapter(mAdapter);
-                    RecyclerView.LayoutManager layoutManager =
-                            new LinearLayoutManager(EventsActivity.this);
-                    mRecyclerView.setLayoutManager(layoutManager);
-                    mRecyclerView.setHasFixedSize(true);
-                    showRestaurants();
-                } else {
-                    showUnsuccessfulMessage();
+                if (mPosition != null && mEvents != null){
+                    Intent intent = new Intent(this, EventDetailActivity.class);
+                    intent.putExtra(Constants.EXTRA_KEY_POSITION, mPosition);
+                    intent.putExtra(Constants.EXTRA_KEY_EVENTS, Parcels.wrap(mEvents));
+                    startActivity(intent);
                 }
             }
-
-            @Override
-            public void onFailure(Call<EventSearch> call, Throwable t) {
-                //hideProgressBar();
-                showFailureMessage();
-            }
-
-        });
-    }
-    private void showFailureMessage() {
-        mErrorTextView.setText("Something went wrong. Please check your Internet connection and try again later");
-        mErrorTextView.setVisibility(View.VISIBLE);
+        }
     }
 
-    private void showUnsuccessfulMessage() {
-        mErrorTextView.setText("Something went wrong. Please try again later");
-        mErrorTextView.setVisibility(View.VISIBLE);
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+
+        if (mPosition != null && mEvents != null){
+            outState.putInt(Constants.EXTRA_KEY_POSITION, mPosition);
+            outState.putParcelable(Constants.EXTRA_KEY_EVENTS, Parcels.wrap(mEvents));
+            outState.putString(Constants.KEY_SOURCE, mSource);
+        }
     }
 
-    private void showRestaurants() {
-        mRecyclerView.setVisibility(View.VISIBLE);
+    @Override
+    public void onEventSelected(Integer position, ArrayList<Event> events, String source){
+        mPosition = position;
+        mEvents = events;
+        mSource = source;
     }
 
-   /* private void hideProgressBar() {
-        mProgressBar.setVisibility(View.GONE);
-    }*/
 }
