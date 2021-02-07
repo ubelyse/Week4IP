@@ -56,7 +56,6 @@ public class EventsActivity extends AppCompatActivity {
         call.enqueue(new Callback<EventSearch>() {
             @Override
             public void onResponse(Call<EventSearch> call, Response<EventSearch> response) {
-                hideProgressBar();
 
                 if (response.isSuccessful()) {
                     events = response.body().getEvents();
@@ -66,7 +65,7 @@ public class EventsActivity extends AppCompatActivity {
                             new LinearLayoutManager(EventsActivity.this);
                     mRecyclerView.setLayoutManager(layoutManager);
                     mRecyclerView.setHasFixedSize(true);
-
+                    hideProgressBar();
                     showRestaurants();
                 } else {
                     showUnsuccessfulMessage();
