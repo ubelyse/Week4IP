@@ -54,9 +54,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     @BindView(R.id.eventImageView) ImageView mImageLabel;
     @BindView(R.id.eventNameTextView) TextView mNameLabel;
     @BindView(R.id.cuisineTextView) TextView mCategoriesLabel;
-    @BindView(R.id.ratingTextView) TextView mRatingLabel;
     @BindView(R.id.websiteTextView) TextView mWebsiteLabel;
-    @BindView(R.id.phoneTextView) TextView mPhoneLabel;
     @BindView(R.id.addressTextView) TextView mAddressLabel;
     @BindView(R.id.saveEventButton) TextView mSaveEventButton;
 
@@ -76,15 +74,15 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     }
 
     public static EventDetailFragment newInstance(ArrayList<Event> events, Integer position, String source){
-        EventDetailFragment restaurantDetailFragment = new EventDetailFragment();
+        EventDetailFragment eventDetailFragment = new EventDetailFragment();
         Bundle args = new Bundle();
 
         args.putParcelable(Constants.EXTRA_KEY_EVENTS, Parcels.wrap(events));
         args.putInt(Constants.EXTRA_KEY_POSITION, position);
         args.putString(Constants.KEY_SOURCE, source);
 
-        restaurantDetailFragment.setArguments(args);
-        return restaurantDetailFragment;
+        eventDetailFragment.setArguments(args);
+        return eventDetailFragment;
     }
 
     @Override
@@ -180,7 +178,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     private File createImageFile()  {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "Restaurant_JPEG_" + timeStamp + "_";
+        String imageFileName = "Event_JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES);
         File image = new File(storageDir,
@@ -217,9 +215,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
             Toast.makeText(getContext(), "Image saved!!", Toast.LENGTH_LONG).show();
-            // For those saving their files in directories private to their apps
-            // addrestaurantPicsToGallery();
-            // Get the dimensions of the View
+
             int targetW = mImageLabel.getWidth()/3;
             int targetH = mImageLabel.getHeight()/2;
 
@@ -243,17 +239,11 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
             bmOptions.inJustDecodeBounds = false;
 
             Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
-
-//            String width = String.valueOf(bitmap.getWidth());
-//            String length = String.valueOf(bitmap.getHeight());
-//            Log.d(width, length);
             mImageLabel.setImageBitmap(bitmap);
             encodeBitmapAndSaveToFirebase(bitmap);
         }
     }
 
-    //      This method calculates the inSample Size variabel based on the lenght and width of the supposed  view in our restaurant app
-//
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
@@ -281,11 +271,11 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
 //      For those who used getExternalFilesDir() instead of getExternalStoragePublicDirectory() in the createImageFile() function.
 //    This will broadcast the file to the media scanner
 
-    private void addrestaurantPicsToGallery() {
+    private void addeventPicsToGallery() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File restaurantFile = new File(currentPhotoPath);
-        Uri restaurantPhotoUri = Uri.fromFile(restaurantFile);
-        mediaScanIntent.setData(restaurantPhotoUri);
+        File eventFile = new File(currentPhotoPath);
+        Uri eventPhotoUri = Uri.fromFile(eventFile);
+        mediaScanIntent.setData(eventPhotoUri);
         getActivity().sendBroadcast(mediaScanIntent);
     }
 
@@ -297,7 +287,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         DatabaseReference ref = FirebaseDatabase.getInstance()
                 .getReference(Constants.FIREBASE_CHILD_EVENTS)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child(mEvent.getPushId())
+                .child(mEvent.getId())
                 .child("imageUrl");
         ref.setValue(imageEncoded);
     }
@@ -318,21 +308,21 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         } if (v == mSaveEventButton) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String uid = user.getUid();
-            final DatabaseReference restaurantRef = FirebaseDatabase
+            final DatabaseReference eventRef = FirebaseDatabase
                     .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_EVENTS)
                     .child(uid);
             String name = mEvent.getName();
-            restaurantRef.orderByChild("name").equalTo(name).addValueEventListener(new ValueEventListener() {
+            eventRef.orderByChild("name").equalTo(name).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()) {
-                        Toast.makeText(getContext(), "This Restaurant already exists in your saved restaurants", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "This Event already exists in your saved events", Toast.LENGTH_LONG).show();
 
                     } else{
-                        DatabaseReference pushRef = restaurantRef.push();
+                        DatabaseReference pushRef = eventRef.push();
                         String pushId = pushRef.getKey();
-                        mEvent.setPushId(pushId);
+                        mEvent.setId(pushId);
                         pushRef.setValue(mEvent);
                         Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
 
