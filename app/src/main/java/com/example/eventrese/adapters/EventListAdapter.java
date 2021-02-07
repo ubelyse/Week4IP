@@ -33,18 +33,18 @@ import butterknife.ButterKnife;
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHolder> {
     private ArrayList<Event> mEvents = new ArrayList<>();
     private Context mContext;
-    private OnEventSelectedListener eventSelectedListener;
+    private OnEventSelectedListener meventSelectedListener;
 
     public EventListAdapter(Context context, ArrayList<Event> events, OnEventSelectedListener eventSelectedListener){
         mContext = context;
         mEvents = events;
-        eventSelectedListener = eventSelectedListener;
+        meventSelectedListener = eventSelectedListener;
     }
 
     @Override
     public EventListAdapter.EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_list_item, parent, false);
-        EventViewHolder viewHolder = new EventViewHolder(view, mEvents, eventSelectedListener);
+        EventViewHolder viewHolder = new EventViewHolder(view, mEvents, meventSelectedListener);
         return viewHolder;
     }
 
