@@ -1,5 +1,6 @@
 package com.example.eventrese.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -25,25 +26,26 @@ import java.security.GeneralSecurityException;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    ImageView iconShakeHands, iconLogo, iconSlogan;
+    ImageView iconShakeHands,iconSlogan;
     Animation fromTop, fromLeft, fromRight;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
         iconShakeHands = (ImageView)findViewById(R.id.iconShakeHands);
-        iconSlogan = (ImageView)findViewById(R.id.iconSlogan);
+        iconSlogan = (ImageView)findViewById(R.id.iconslogan);
 
         fromTop = AnimationUtils.loadAnimation(SplashScreenActivity.this,R.animator.anim_from_top_to_bottom);
         fromLeft = AnimationUtils.loadAnimation(SplashScreenActivity.this,R.animator.anim_from_left_to_right);
         fromRight = AnimationUtils.loadAnimation(SplashScreenActivity.this,R.animator.anim_from_right_to_left);
 
         iconShakeHands.setAnimation(fromTop);
-        iconLogo.setAnimation(fromLeft);
+       // iconLogo.setAnimation(fromLeft);
         iconSlogan.setAnimation(fromRight);
 
         // Set thread set to 3 seconds for the welcome screen
