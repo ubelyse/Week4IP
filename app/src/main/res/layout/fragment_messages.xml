@@ -43,9 +43,7 @@
         android:id="@+id/listViewRecentlyChat"
         android:layout_below="@id/toolBarSearchMessages"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layoutAnimation="@anim/drag_scale_off"
-        >
+        android:layout_height="match_parent">
 
     </ListView>
 
