@@ -119,7 +119,7 @@ public class MoreInfoActivity extends AppCompatActivity implements ValueEventLis
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String status = dataSnapshot.getValue(String.class);
 
-                        Intent iFriendProfile = new Intent(MoreInfoActivity.this, SearchProfileActivity.class);
+                       /* Intent iFriendProfile = new Intent(MoreInfoActivity.this, SearchProfileActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("UID_Friend",uidFriend);
                         bundle.putString("Email",friend.getUsername());
@@ -128,7 +128,7 @@ public class MoreInfoActivity extends AppCompatActivity implements ValueEventLis
                         bundle.putString("Name_Friend",nameFriend);
                         iFriendProfile.putExtras(bundle);
                         startActivity(iFriendProfile);
-                        finish();
+                        finish();*/
                 }
 
                 @Override
