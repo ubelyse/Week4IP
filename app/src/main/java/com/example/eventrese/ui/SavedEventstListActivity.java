@@ -25,7 +25,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SavedEventstListActivity extends AppCompatActivity {
+public class SavedEventstListActivity extends AppCompatActivity{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_saved_event_list);
+    }
+
+}
+
+
+
+
+/*
+extends AppCompatActivity {
 
     private DatabaseReference mRestaurantReference;
     private FirebaseRecyclerAdapter<Events, FirebaseEventViewHolder> mFirebaseAdapter;
@@ -84,3 +98,5 @@ public class SavedEventstListActivity extends AppCompatActivity {
         }
     }
 }
+
+ */
