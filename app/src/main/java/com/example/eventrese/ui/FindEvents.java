@@ -29,7 +29,6 @@ public class FindEvents extends AppCompatActivity implements View.OnClickListene
     @BindView(R.id.findeventsbtn) Button findEventsbtn;
     @BindView(R.id.savedEvents) Button msavedEvents;
     @BindView(R.id.locationEditText) EditText mLocationEditText;
-    //@BindView(R.id.savedEvents) TextView msavedEventsbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -27,8 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SavedEventListFragment extends Fragment implements OnStartDragListener {
-    @BindView(R.id.recyclerView)
-    RecyclerView mRecyclerView;
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
     private FirebaseEventListAdapter mFirebaseAdapter;
     private ItemTouchHelper mItemTouchHelper;
 

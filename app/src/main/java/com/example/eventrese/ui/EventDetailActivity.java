@@ -1,7 +1,6 @@
 package com.example.eventrese.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -10,11 +9,9 @@ import com.example.eventrese.Constants;
 import com.example.eventrese.R;
 import com.example.eventrese.adapters.EventPagerAdapter;
 import com.example.eventrese.models.Event;
-import com.example.eventrese.models.Events;
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,7 +21,7 @@ public class EventDetailActivity extends AppCompatActivity {
     @BindView(R.id.viewPager) ViewPager mViewPager;
     private EventPagerAdapter adapterViewPager;
     private String mSource;
-    ArrayList<Event> mEvents = new ArrayList<>();
+    List<Event> mEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

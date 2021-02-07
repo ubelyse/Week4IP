@@ -30,7 +30,6 @@ import android.widget.Toast;
 import com.example.eventrese.Constants;
 import com.example.eventrese.R;
 import com.example.eventrese.models.Event;
-import com.example.eventrese.models.Events;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,6 +47,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,7 +75,7 @@ public class EventDetailFragment  extends Fragment implements View.OnClickListen
         // Required empty public constructor
     }
 
-    public static EventDetailFragment newInstance(ArrayList<Event> events, Integer position, String source){
+    public static EventDetailFragment newInstance(List<Event> events, Integer position, String source){
         EventDetailFragment eventDetailFragment = new EventDetailFragment();
         Bundle args = new Bundle();
 

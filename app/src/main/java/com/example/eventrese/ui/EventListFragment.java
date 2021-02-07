@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
@@ -28,9 +26,6 @@ import com.example.eventrese.models.EventSearch;
 import com.example.eventrese.network.YelpApi;
 import com.example.eventrese.network.YelpService;
 import com.example.eventrese.util.OnEventSelectedListener;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,7 +38,7 @@ public class EventListFragment extends Fragment {
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
     @BindView(R.id.errorTextView) TextView mErrorTextView;
     private EventListAdapter mAdapter;
-    private List<Event> events = new ArrayList<>();
+    private List<Event> events;
 
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
@@ -86,15 +81,13 @@ public class EventListFragment extends Fragment {
         return view;
     }
 
-    public void getEvents(String location){
+    private void getEvents(String mRecentAddress) {
         YelpApi client = YelpService.getClient();
-
-        Call<EventSearch> call = client.getEvents(location, "event");
+        Call<EventSearch> call = client.getEvents(mRecentAddress, "event");
 
         call.enqueue(new Callback<EventSearch>() {
             @Override
             public void onResponse(Call<EventSearch> call, Response<EventSearch> response) {
-
                 if (response.isSuccessful()) {
                     events = response.body().getEvents();
                     mAdapter = new EventListAdapter(getActivity(), events,mOnEventSelectedListener);
@@ -114,17 +107,21 @@ public class EventListFragment extends Fragment {
             public void onFailure(Call<EventSearch> call, Throwable t) {
                 showFailureMessage();
             }
-
         });
     }
 
     private void showFailureMessage() {
-        mErrorTextView.setText("Something went wrong. Please try again later");
+        mErrorTextView.setText("Something went wrong. Please check your Internet connection and try again later");
+        mErrorTextView.setVisibility(View.VISIBLE);
     }
 
     private void showUnsuccessfulMessage() {
-        mErrorTextView.setVisibility(View.VISIBLE); mErrorTextView.setText("Something went wrong. Please try again later");
+        mErrorTextView.setText("Something went wrong. Please try again later");
         mErrorTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void showEvents() {
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -149,11 +146,6 @@ public class EventListFragment extends Fragment {
             }
         });
     }
-
-    private void showEvents() {
-        mRecyclerView.setVisibility(View.VISIBLE);
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

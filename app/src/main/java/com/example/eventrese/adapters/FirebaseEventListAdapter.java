@@ -29,8 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
 import org.parceler.Parcels;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

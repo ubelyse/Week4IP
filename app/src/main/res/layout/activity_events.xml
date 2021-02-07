@@ -6,7 +6,7 @@
     tools:context=".ui.EventsActivity">
 
     <fragment
-        android:id="@+id/fragmentRestaurantList"
+        android:id="@+id/fragmentEventList"
         android:name="com.example.eventrese.ui.EventListFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

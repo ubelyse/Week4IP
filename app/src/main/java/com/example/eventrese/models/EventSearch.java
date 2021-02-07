@@ -15,7 +15,7 @@ public class EventSearch {
     private Integer total;
     @SerializedName("events")
     @Expose
-    private List<Event> events = null;
+    private List<Event> events;
 
     /**
      * No args constructor for use in serialization

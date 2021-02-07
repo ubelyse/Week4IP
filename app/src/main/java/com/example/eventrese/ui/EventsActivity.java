@@ -1,19 +1,14 @@
 package com.example.eventrese.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-
 import android.content.res.Configuration;
 import android.os.Bundle;
-
 import android.view.View;
-
 import android.widget.ProgressBar;
-
 import android.widget.TextView;
 
 import com.example.eventrese.Constants;
@@ -38,7 +33,7 @@ import retrofit2.Response;
 
 public class EventsActivity extends AppCompatActivity implements OnEventSelectedListener {
     private Integer mPosition;
-    ArrayList<Event> mEvents;
+    List<Event> mEvents;
     String mSource;
 
     @Override
@@ -73,7 +68,7 @@ public class EventsActivity extends AppCompatActivity implements OnEventSelected
     }
 
     @Override
-    public void onEventSelected(Integer position, ArrayList<Event> events, String source){
+    public void onEventSelected(Integer position, List<Event> events, String source){
         mPosition = position;
         mEvents = events;
         mSource = source;
