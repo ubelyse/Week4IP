@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "170033829325",
+    "project_id": "eventrese",
+    "storage_bucket": "eventrese.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170033829325:android:350480eb277e15f18b2084",
+        "android_client_info": {
+          "package_name": "com.example.eventrese"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "170033829325-s61bnvm8ss3o83e1kt8vd5thhcjcnqa2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSduZU845G1OjEYmQtrwrzngij_YA8i34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "170033829325-s61bnvm8ss3o83e1kt8vd5thhcjcnqa2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

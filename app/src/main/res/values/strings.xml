@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">EventRese</string>
+
+    <string name="gender">Sex</string>
+    <string name="phoneNumber">Phone</string>
+    <string name="dateOfBirth">Date of birth</string>
+    <string name="address">Address</string>
+    <string name="description">Description</string>
+    <string name="edit_button">Edit</string>
+    <string name="choose_picture_avatar">Choose your profile picture</string>
+    <string name="camera_picture_avatar">Take an avatar</string>
+    <string name="choose_picture_background">Choose a cover photo</string>
+    <string name="camera_picture_background">Cover photos</string>
+    <string name="default_avatar">Default avatar</string>
+    <string name="default_background">Default cover image</string>
+    <string name="quit">Cancel</string>
+    <string name="fullName">Full name</string>
+    <string name="male">male</string>
+    <string name="female">Female</string>
+    <string name="search_friend_message">Friends, messages...</string>
+    <string name="message">Message...</string>
+    <string name="view_info_friend">View friend information</string>
+    <string name="search_friend_by_phone">Find friends by phone number</string>
+    <string name="search_friend_by_email">Find friends by email account</string>
+    <string name="reject_friend_button">Decline the invitation</string>
+    <string name="list_request">Friend request list</string>
+    <string name="email_reset_password">Password recovery email</string>
+    <string name="email">Email</string>
+    <string name="password">password</string>
+    <string name="repassword">Enter the password</string>
+    <string name="register">Registration</string>
+    <string name="cancel">Come back</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login">Login</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <style name="MenuStyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">@android:color/white</item>
+    </style>
 </resources>

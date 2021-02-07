@@ -9,7 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EventRese">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.ChatWithFriendActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".ui.SavedEventstListActivity" />
+        <activity android:name=".ui.EventDetailActivity" />
+        <activity android:name=".ui.EventsActivity" />
+        <activity android:name=".ui.FindEvents" />
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.RegisterActivity" />
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
