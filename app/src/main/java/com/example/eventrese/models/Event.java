@@ -69,6 +69,7 @@ public class Event {
     @SerializedName("business_id")
     @Expose
     private String businessId;
+    String index;
 
     /**
      * No args constructor for use in serialization
@@ -100,7 +101,7 @@ public class Event {
      * @param category
      * @param longitude
      */
-    public Event(Integer attendingCount, String category, Double cost, Double costMax, String description, String eventSiteUrl, String id, String imageUrl, Integer interestedCount, Boolean isCanceled, Boolean isFree, Boolean isOfficial, Double latitude, Double longitude, String name, String ticketsUrl, String timeEnd, String timeStart, Location location, String businessId) {
+    public Event(Integer attendingCount, String category, Double cost, Double costMax, String description, String eventSiteUrl, String id, String imageUrl, Integer interestedCount, Boolean isCanceled, Boolean isFree, Boolean isOfficial, Double latitude, Double longitude, String name, String ticketsUrl, String timeEnd, String timeStart, Location location, String businessId, String index) {
         super();
         this.attendingCount = attendingCount;
         this.category = category;
@@ -122,6 +123,15 @@ public class Event {
         this.timeStart = timeStart;
         this.location = location;
         this.businessId = businessId;
+        this.index=index;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
     }
 
     public Integer getAttendingCount() {

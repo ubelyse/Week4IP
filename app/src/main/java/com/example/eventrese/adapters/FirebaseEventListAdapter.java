@@ -18,6 +18,7 @@ import com.example.eventrese.R;
 import com.example.eventrese.fragments.EventDetailFragment;
 import com.example.eventrese.models.Event;
 import com.example.eventrese.ui.EventDetailActivity;
+import com.example.eventrese.util.ItemTouchHelperAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.ChildEventListener;
